@@ -8,6 +8,8 @@ class Action {
         this.#type = type;
         this.#cout = cout;
     }
-    
+    getName () {
+        console.log (`Tu as choisi le coup ${this.#name}`);
+    }
     
 }
