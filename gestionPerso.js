@@ -182,7 +182,6 @@ const howManyNewActions = 2;
 
 // Traiter le tableau actions[] et récupérer les items en fonction du personnage. 
 // @var : character
- const magasinActionItemsForCharacter = actions.map()
 
 
 // Instancier les actions via une boucle et la class Action
