@@ -4,18 +4,32 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRANCHE TEST</title>
+    <title>Sélection des coups</title>
+    <link rel="stylesheet" href="form.css" />
   </head>
   <body>
-    <form action="form.html">
-      <div class="form-element">
-        <label for="choixAttaque">Choisissez votre attaque !</label>
-        <select name="attaque" id="menuAttaque">
-          <option value="">Choisis ton attaque !</option>
-          <option value="attaqueNormale">Grosse attaque</option>
-          <option value="attaqueNormale">Petite attaque</option>
-        </select>
-      </div>
-    </form>
+    <h1>Sélection</h1>
+
+    <!--- On crée une class pour englober le formulaire de sélection de coups-->
+    <div class="form-attack-warriors">
+      <form>
+        <!-- On crée une sous-classe qui comporte toutes les options du select -->
+        <div class="form-element">
+          <label for="choix-attaque">Choisis ton attaque !</label>
+
+          <!-- On crée un select pour faire le menu déroulant des attaques disponibles du joueur -->
+          <select name="attaque" id="menu-attaque">
+            <!-- On définit les attaques ci-dessous -->
+            <option value="attaque-grosse">Point d'or (15, 15)</option>
+            <option value="attaque-petite">Point d'argent (10, 10)</option>
+            <option value="attaque-de-base">Coup d'boul (0, 1)</option>
+          </select>
+
+          <!-- On crée un bouton qui servira à sauvegarder les données et les afficher dans la console -->
+          <aside><button class="button-ok" onclick="">Entrer</button></aside>
+        </div>
+      </form>
+    </div>
+    <script src="combat.js"></script>
   </body>
 </html>

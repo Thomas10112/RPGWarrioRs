@@ -1,0 +1,59 @@
+/************************** GLOBAL ****************************/
+/**************************************************************/
+/**************************************************************/
+
+body {
+  background-color: #f1d3b3;
+}
+
+h1 {
+  text-align: center;
+}
+
+/************************** / GLOBAL ****************************/
+/**************************************************************/
+/**************************************************************/
+
+/***************************** FORM TEMPLATE ****************************/
+.form-attack-warriors {
+  text-align: center;
+  background-color: #8b7e74;
+  height: 500px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  background-size: 1000px;
+  border-radius: 3.5%;
+  box-shadow: 150ch;
+}
+/***************************** / FORM TEMPLATE ****************************/
+
+.button-ok {
+  background-color: #65647c;
+  font-size: 30px;
+}
+
+select {
+  background-color: #c7bca1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 1.5em;
+  margin-top: 1.5em;
+  font-size: 20px;
+}
+
+/* WHEN BUTTON "Entrer" HOVERED, BACKGROUND CHANGED WITH TRANSITION :) */
+.button-ok:hover {
+  background-color: #8b7e74;
+  transition-duration: 0.6s;
+}
+/* / WHEN BUTTON "Entrer" HOVERED, BACKGROUND CHANGED WITH TRANSITION :) */
+
+/* / WHEN SELECT'S MENU-ATTAQUE HOVERED, BACKGROUND CHANGED WITH TRANSITION :) */
+select#menu-attaque:hover {
+  background-color: #a89f89;
+  transition-duration: 0.6s;
+}
+/* / WHEN SELECT'S MENU-ATTAQUE HOVERED, BACKGROUND CHANGED WITH TRANSITION :) */
