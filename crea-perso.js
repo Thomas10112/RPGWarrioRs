@@ -45,6 +45,9 @@ const characterModels = [
         description: "The Archer is bla bla bla"
     },
 ]
+let currentCharacterName = null;
+let currentCharacterTypeChoice = null;
+let currentCharacterLife = null;
 
 // Créer une chaine de caractère à envoyer dans le prompt pour le choix du nom du perso
 const nameChoiceSentence = 'Veuillez choisir un nom'
@@ -264,50 +267,55 @@ const characterClasses = {
 
 
 
-
 /***********************************************************
  *  ALGO init_character => Instanciation des Personnages   *
  *                 l'ouverture de l'auberge                *
  ***********************************************************/
+function initCharacterName() {
+    currentCharacterName = prompt(nameChoiceSentence);
+    if(currentCharacterName == "") {
+        console.log("Name can't be empty!")
+        initCharacterName();
+    }
+}
+function initCharacterType() {
+    currentCharacterTypeChoice = prompt(characterChoiceSentence);
+    if(currentCharacterTypeChoice == "" /* && typeof currentCharacterTypeChoice == "number" */ || currentCharacterTypeChoice <= 0 || currentCharacterTypeChoice > characterModels.length) {
+        console.log('Select a valid choice Stupid !')
+        initCharacterType();
+    } 
+    
+}
+function initCharacterLife() {
+    currentCharacterLife = prompt(lifeChoiceSentence);
+    if(currentCharacterLife == "" /* && typeof currentCharacterLife == "number" */  || currentCharacterLife < lifeInitMinPoint || currentCharacterLife > lifeInitMaxPoint) {
+        console.log(`Select a valid choice for life ! Between ${lifeInitMinPoint} and ${lifeInitMaxPoint}` )
+        initCharacterLife();
+    }
+}
 
 
 /* initCharacter()
 *  Permet la création de personnage
 */
 function initCharacter() {
-    let characterName = prompt(nameChoiceSentence);
-    if(characterName != "") {
-        characterName;
-    } else {
-        initCharacter();
-    };
+    initCharacterName();
+    console.log(currentCharacterName)
+    initCharacterType();
+    console.log(currentCharacterTypeChoice)
+    initCharacterLife();
+    console.log(currentCharacterLife)
 
-    let typeChoice = prompt(characterChoiceSentence);
-    if(typeChoice != "" /* && typeof typeChoice == "number" */ && typeChoice > 0 && typeChoice <= characterModels.length) {
-        typeChoice;
-    } else {
-        console.log(typeof typeChoice)
-        console.log('Select a valid choice Stupid !')
-        initCharacter();
-    };
-
-    let characterLife = prompt(lifeChoiceSentence);
-    if(characterLife != "" /* && typeof characterLife == "number" */  && characterLife >= lifeInitMinPoint && characterLife <= lifeInitMaxPoint) {
-        characterLife;
-    } else {
-        console.log(`Select a valid choice for life ! Between ${lifeInitMinPoint} and ${lifeInitMaxPoint}` )
-        initCharacter();
-    };
-    let characterType = null
     // Filtrer le tableau et récupérer le type de perso en fonction de l'uid
+    let characterType = null
     characterModels.filter(function (object) {
-        if (object.uid == typeChoice) {
+        if (object.uid == currentCharacterTypeChoice) {
             characterType = object.type;
         }
     });
-    
+    console.log(characterType);
     // Créer dynamiquement le perso en appelant la bonne fonction
-    const newCharacter = new characterClasses[characterType](characterName, characterLife)
+    const newCharacter = new characterClasses[characterType](currentCharacterName, currentCharacterLife)
     console.log(newCharacter);
     return newCharacter;
 };
