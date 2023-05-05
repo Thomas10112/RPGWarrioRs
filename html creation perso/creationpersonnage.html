@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <section>
+        <div class="formulaire">
+
+
+            <form action="#">
+                <div class=champ>
+                    <label for="nom"> Nom de personnage:</label>
+                    <input type="text" placeholder="entrez votre pseudo" required>
+                </div>
+                <div>
+                    <label for="personnage"> choisissez votre classe</label>
+                    <select name="persos" id="persos" required>
+                        <option value="">Sélectionnez votre classe</option>
+                        <option value="Wizzard">Wizzard</option>
+                        <option value="Warrior">Warrior</option>
+                        <option value="Archer">Archer</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="vie"> nombre de PV (min 30 et max 40):</label>
+                    <input type="number" min="30" max="40" value="30" required>
+                </div>
+
+                <div>
+                    <label for="vie"> nombre de PA(points d'action):</label>
+                    <input type="text" placeholder=" pa auto">
+                </div>
+                <input type="submit" value="créer">
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>
