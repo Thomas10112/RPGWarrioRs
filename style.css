@@ -1,0 +1,90 @@
+/* Sélectionne tous les éléments de la page et réinitialise les styles */
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+}
+
+/* Style du titre */
+h1 {
+      background-image: linear-gradient(to right, #FFA903, #D34C00);
+      border-radius: 3em;
+      color: white;
+      font-size: 2rem;
+      text-align: center;
+      margin: 1rem 0;
+}
+
+/* Style du label pour le menu déroulant */
+label {
+      display: block;
+      margin: 1rem 0;
+}
+
+/* Style du menu déroulant */
+select {
+      background-color: #D8E9FD;
+      display: block;
+      margin: 0 auto;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 20rem;
+}
+
+/* Style du button*/
+.dropdown {
+      position: relative;
+      display: inline-block;
+      margin-right: 1rem;
+}
+
+.dropdown-content {
+      display: none;
+      position: absolute;
+      z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+      display: block;
+}
+
+.button {
+      text-align: center;
+      margin-top: 1rem;
+}
+
+.button button {
+      background-color: #FFA903;
+      color: #FFFFFF;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      border-radius: 10px;
+      font-family: "Press Start 2P", sans-serif;
+}
+
+
+/* Style du conteneur de la console */
+.console {
+      background-image: linear-gradient(to bottom right, #FAFF00, #226900);
+      border-radius: 2em;
+      padding: 1rem;
+      margin: 2rem 0;
+}
+
+/* Style des messages de la console */
+.console p {
+      margin: 0.5rem 0;
+
+}
+
+/* Style du corps de la page */
+body {
+      font-family: Arial, sans-serif;
+      max-width: 50rem;
+      margin: 0 auto;
+      padding: 1rem;
+}

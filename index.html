@@ -1,17 +1,41 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Action</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
+
 <body>
-    <table>
-        <tr>
-            <td></td>
-        </tr>
-    </table>
-    <script src="gestionPerso.js"></script>
+    <h1>CHOIX ACTION</h1>
+    <h1></h1>
+    <label for="Choose action">Choose your action:</label>
+    <select name="Action" id="Action">
+        <option value="">--Please choose an option--</option>
+        <option value="Fleche de feu">Flèche de feu</option>
+        <option value="Point de feu">Point de feu</option>
+        <option value="Boule de feu">Boule de feu</option>
+        <option value="Fleche d'argent'">Fléche d'argent'</option>
+        <option value="Point  d'argent">Point d'argent</option>
+        <option value="Boule  d'argent">Boule d'argent</option>
+        <option value="Fleche d'or'">Flèche d'or'</option>
+        <option value="Boule  d'or">Boule d'or</option>
+    </select>
+    <div class="button">
+        <button>FIGHT!</button>
+    </div>
+
+    <h2>Player 1 or 2</h2>
+    <div class="console">
+        <p>Console.log</p>
+        <p>Infos</p>
+    </div>
 </body>
+<script src="gestionPerso.js"></script>
+
+
 </html>

@@ -61,54 +61,63 @@ const wizzard = {
 // Contenu du Magasin : Les Items Actions
 const actions = [
     {
+        uniqId: 1,
         name: 'Fleche de feu',
         type: 'dexterity',
         coast: 5,
         damage: 5
     },
     {
+        uniqId: 2,
         name: 'Point de feu',
         type: 'force',
         coast: 5,
         damage: 5
     },
     {
+        uniqId: 3,
         name: 'Boule de feu',
         type: 'mana',
         coast: 5,
         damage: 5
     },
     {
+        uniqId: 4,
         name: 'Fleche d\'argent',
         type: 'dexterity',
         coast: 10,
         damage: 10
     },
     {
+        uniqId: 5,
         name: 'Point  d\'argent',
         type: 'force',
         coast: 10,
         damage: 10
     },
     {
+        uniqId: 6,
         name: 'Boule  d\'argent',
         type: 'mana',
         coast: 10,
         damage: 10
     },
     {
+        uniqId: 7,
         name: 'Fleche d\'or',
         type: 'dexterity',
         coast: 15,
         damage: 15
     },
     {
+        uniqId: 8,
         name: 'Point  d\'or',
         type: 'force',
         coast: 15,
         damage: 15
     },
     {
+        uniqId: 9,
         name: 'Boule  d\'or',
         type: 'mana',
         coast: 15,
@@ -184,16 +193,27 @@ const howManyNewActions = 2;
 // @var : character
 
 
+
+
+
 // Instancier les actions via une boucle et la class Action
 // const magasinActionItemsForCharacter = la boucle filtré sur actions[]
+
+wizzard.actions = actions.filter((types) => {return types.type === "mana"})
+archer.actions = actions.filter((types) => {return types.type === "dexterity"})
+warrior.actions = actions.filter((types) => {return types.type === "force"})
+console.log(wizzard)
+console.log(archer)
+console.log(warrior)
+
 
 
 
 // Créer une chaine de caractère à envoyer dans le prompt basé sur : 
 // ${action.uniqId} : ${action.name}
 let sentence = ''
-actions.forEach(el => {
-    sentence = `${sentence} \n ${el.coast} : ${el.name} => COAST : ${el.coast} points | DAMAGE : ${el.damage}`
+archer.actions.forEach(el => {
+    sentence = `${sentence} \n ${el.uniqId} : ${el.name} Te coûtes ${el.coast} points et fait ${el.damage} de dégats`
 });
 console.log(sentence)
 
@@ -230,4 +250,3 @@ for (let i = 0; i < howManyNewActions; i++) {
 //console.log();
 
 
-console.log(actions.getName())
