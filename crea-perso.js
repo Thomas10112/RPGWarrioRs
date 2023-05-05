@@ -8,9 +8,10 @@ class Character {
     #name;
     #life;
     #type;
+    #actions = [];
     constructor(name, type = null, life = 30) {
         this.#name = name;
-        this.#life = life;
+        this.#life = this.setLife(life);
         this.#type = type;
     };
     getName() {
@@ -36,16 +37,23 @@ class Character {
             // rentrée
         } else {
             this.#life = life;
-            console.log(`My life is ${this.#life}`);
+           return life;
         };
     };
     getType() {
         console.log(`My type is ${this.#type}`);
         return this.#type;
     };
+    getActions() {
+        return this.#actions;
+    };
+    setAction(action) {
+        this.#actions.push(action);
+    };
 };
-const myCharacter = new Character();
+/*const myCharacter = new Character();
 console.log(myCharacter);
+*/
 
 // On crée la première classe de personnage qui est
 // de type Wizard
@@ -53,7 +61,7 @@ class Wizard extends Character {
     #mana
     constructor(name, type = 'Wizard', life, mana = null) {
         super(name, type, life);
-        this.#mana = mana;
+        this.#mana = limitePoint - this.getLife();
     };
 
     getMana() {
@@ -64,26 +72,26 @@ class Wizard extends Character {
     // auxquel on enlève les points de vie définit avant par
     // l'utilisateur
     howManyMana() {
-        this.#mana = limitePoint - this.getLife();
         console.log(`Mana is ${this.#mana}`);
     };
 };
-const myWizard = new Wizard('Sirius Black');
+/* const myWizard = new Wizard('Sirius Black');
 console.log(myWizard);
 myWizard.getName();
 myWizard.getLife();
-// myWizard.setLife();
+myWizard.setLife();
 myWizard.getLife();
 myWizard.getType();
 myWizard.howManyMana();
-// console.log(myWizard.getLife() - myWizard.getMana());
+console.log(myWizard.getLife() - myWizard.getMana());
+*/
 
 // Création de la classe personnage de type Warrior
 class Warrior extends Character {
     #strength
     constructor(name, type = 'Warrior', life, strength = null) {
-        super(name, life, type);
-        this.#strength = strength;
+        super(name, type, life);
+        this.#strength = limitePoint - this.getLife();
     };
 
     getStrength() {
@@ -94,22 +102,22 @@ class Warrior extends Character {
     // auxquel on enlève les points de vie définit avant par
     // l'utilisateur
     howManyStrength() {
-        this.#strength = limitePoint - this.getLife();
         console.log(`Strength is ${this.#strength}`);
     };
 };
 
-const myWarrior = new Warrior('Kratos');
+/* const myWarrior = new Warrior('Kratos');
 console.log(myWarrior);
 myWarrior.setLife(40);
 myWarrior.howManyStrength();
+*/
 
 // Création de la dernière classe de personnage qui est de type Archer
 class Archer extends Character {
     #dexterity
     constructor(name, type = 'Archer', life, dexterity = null) {
         super(name, type, life);
-        this.#dexterity = dexterity;
+        this.#dexterity = limitePoint - this.getLife();
     };
 
     getDexterity() {
@@ -120,12 +128,28 @@ class Archer extends Character {
     // auxquel on enlève les points de vie définit avant par
     // l'utilisateur
     howManyMana() {
-        this.#dexterity = limitePoint - this.getLife();
         console.log(`Dexterity is ${this.#dexterity}`);
     };
 };
 
-const myArcher = new Archer('Legolas');
+/*const myArcher = new Archer('Legolas');
 console.log(myArcher);
 myArcher.setLife(38);
 myArcher.howManyMana();
+*/
+
+function choiceCharacter() {
+    let characterName = prompt('Veuillez choisir un nom');
+    let typeChoice = prompt('Veuillez choisir un type de personnage');
+    let characterLife = prompt('Veuillez choisir un niveau de vie');
+    switch(typeChoice) {
+        case 'Wizard': myCharacter = new Wizard(characterName, typeChoice, characterLife);
+        break;
+        case 'Warrior': myCharacter = new Warrior(characterName, typeChoice, characterLife);
+        break;
+        case 'Archer': myCharacter = new Archer(characterName, typeChoice, characterLife);
+    };
+    console.log(myCharacter);
+};
+choiceCharacter();
+choiceCharacter();
