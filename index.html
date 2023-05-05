@@ -10,34 +10,39 @@
 </head>
 
 <body>
-    <section>
-        <div class="formulaire">
+    <h1 class="title">RPG WarrioRs</h1>
+    <section class="section">
+        <div class="form-builder">
             <form id="create-character-form" action="#">
                 <div class=champ>
-                    <label for="nom"> Nom de personnage:</label>
-                    <input type="text" placeholder="entrez votre pseudo" required>
+                    <label for="name"> Nom de personnage:</label>
+                    <input id="character-name" name="name" type="text" placeholder="entrez votre pseudo" required>
                 </div>
                 <div>
-                    <label for="personnage"> choisissez votre classe</label>
-                    <select name="persos" id="persos" required>
+                    <label for="type"> choisissez votre classe</label>
+                    <select name="type" id="character-types-list" required>
                         <option value="">Sélectionnez votre classe</option>
-                        <option value="Wizzard">Wizzard</option>
-                        <option value="Warrior">Warrior</option>
-                        <option value="Archer">Archer</option>
+                        <option value="wizzard">Wizzard</option>
+                        <option value="warrior">Warrior</option>
+                        <option value="archer">Archer</option>
                     </select>
                 </div>
-
                 <div>
-                    <label for="vie"> nombre de PV (min 30 et max 40):</label>
-                    <input type="number" min="30" max="40" value="30" required>
-                </div>
-
-                <div>
-                    <label for="vie"> nombre de PA(points d'action):</label>
-                    <input type="text" placeholder=" pa auto">
+                    <label for="life"> nombre de PV (min 30 et max 40):</label>
+                    <input name="life" type="number" min="30" max="40" value="30" required>
                 </div>
                 <input type="submit" value="créer">
             </form>
+        </div>
+    </section>
+    <section>
+        <div id="player">
+            <h2 class="title">joueur 1 ou 2</h2>
+        </div>
+    </section>
+    <section>
+        <div id="console-info">
+            <p>information de la console</p>
         </div>
     </section>
 </body>
