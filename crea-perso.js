@@ -11,16 +11,16 @@
  *             CONFIGURATION DE L'AUBERGE                  *
  ***********************************************************/
 
-
 // Permet le calcul final des points d'actions en fonction de la vie définie
 const limitePoint = 50; // @var {number} limitePoint
-
-// Combien de nouveau Personnages ?
+// Point minimum de vie à l'initialisation
+const lifeInitMinPoint = 30; // @var {number} lifeInitMinPoint
+// Point maximum de vie à l'initialisation
+const lifeInitMaxPoint = 40;// @var {number} lifeInitMaxPoint
+// Combien de nouveaux Personnages ?
 const howManyNewCharacters= 2; // @var {number} howManyNewCharacters
-
 // Nombre de Joueur
 const fighters = {};
-
 // Les Personnages disponible à l'auberge
 const characterModels = [
     {
@@ -33,7 +33,7 @@ const characterModels = [
     {
         uid: 2,
         name: 'Warrior',
-        type: 'warior',
+        type: 'warrior',
         initClass: 'Warrior',
         description: "The Warrior is bla bla bla"
     },
@@ -47,11 +47,11 @@ const characterModels = [
 ]
 
 // Créer une chaine de caractère à envoyer dans le prompt pour le choix du nom du perso
-const nameChoiceSentence = ''
+const nameChoiceSentence = 'Veuillez choisir un nom'
 // Créer une chaine de caractère à envoyer dans le prompt pour le choix de la vie du perso
-const lifeChoiceSentence = ''
+const lifeChoiceSentence = 'Veuillez choisir un niveau de vie entre 30 et 40'
 // Créer une chaine de caractère à envoyer dans le prompt pour le choix du type de perso
-let characterChoiceSentence = ''
+let characterChoiceSentence = 'Veuillez choisir un type de personnage'
 characterModels.forEach(el => {
     characterChoiceSentence = `${characterChoiceSentence} \n ${el.uid} : ${el.name} => DESCRIPTION : ${el.description}`
 });
@@ -120,7 +120,7 @@ class Character {
     *  Défini la vie de son personnage avec une limite minimum de 30 et maximum de 40
     */
     initLife(life) {
-        if(life < 30 || life > 40) {
+        if(life < lifeInitMinPoint || life > lifeInitMaxPoint) {
             console.log('Life cannot be less than 30 or more than 40');
         } else {
             this.#life = life;
@@ -264,6 +264,7 @@ const characterClasses = {
 
 
 
+
 /***********************************************************
  *  ALGO init_character => Instanciation des Personnages   *
  *                 l'ouverture de l'auberge                *
@@ -275,19 +276,38 @@ const characterClasses = {
 */
 function initCharacter() {
     let characterName = prompt(nameChoiceSentence);
-    // vérifier que name != null
+    if(characterName != "") {
+        characterName;
+    } else {
+        initCharacter();
+    };
+
     let typeChoice = prompt(characterChoiceSentence);
-    // vérifier que type != null
+    if(typeChoice != "" /* && typeof typeChoice == "number" */ && typeChoice > 0 && typeChoice <= characterModels.length) {
+        typeChoice;
+    } else {
+        console.log(typeof typeChoice)
+        console.log('Select a valid choice Stupid !')
+        initCharacter();
+    };
+
     let characterLife = prompt(lifeChoiceSentence);
-    // vérifier que life != null
-    let newCharacter = "ppp"
-
+    if(characterLife != "" /* && typeof characterLife == "number" */  && characterLife >= lifeInitMinPoint && characterLife <= lifeInitMaxPoint) {
+        characterLife;
+    } else {
+        console.log(`Select a valid choice for life ! Between ${lifeInitMinPoint} and ${lifeInitMaxPoint}` )
+        initCharacter();
+    };
+    let characterType = null
     // Filtrer le tableau et récupérer le type de perso en fonction de l'uid
-
-
+    characterModels.filter(function (object) {
+        if (object.uid == typeChoice) {
+            characterType = object.type;
+        }
+    });
+    
     // Créer dynamiquement le perso en appelant la bonne fonction
-    newCharacter = new characterClasses['archer'](characterName, )
-   
+    const newCharacter = new characterClasses[characterType](characterName, characterLife)
     console.log(newCharacter);
     return newCharacter;
 };
@@ -297,6 +317,7 @@ function initCharacter() {
 */
 function startGame() {
     for (let i = 0; i < howManyNewCharacters; i++) {
+        console.log(` Player ${i + 1} It's your turn to create your FIGHTER !!!` )
         fighters[`fighter${i + 1}`] = initCharacter()
     }
     console.log(fighters)
