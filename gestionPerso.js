@@ -42,7 +42,7 @@ const warrior = {
 }
 const wizzard = {
     name: "Glandelf",
-    dexterity: 20,
+    mana: 20,
     type: "wizzard",
     actions: [],
     getName: () => {
@@ -178,33 +178,78 @@ class Action {
     }
 }
 
-
 /***********************************************************
- *                    ALGO CREATION MAGASIN                *
+ *               CONFIGURATION ECHOPPE                *
  ***********************************************************/
-
-
+// Tableau global des compétences
+const charactersGeneralSkillsList = [
+    "dexterity",
+    "force",
+    "mana"
+]
+// Tableau des compétences du personnage selectionné
+const charactersSkillsList = []
 // Les nouvelles actions selectionnés
 const newActions = [];
 // Les nouvelles actions selectionnés
 const howManyNewActions = 2;
-
-// Traiter le tableau actions[] et récupérer les items en fonction du personnage. 
-// @var : character
-
-
-
+// Les  actions filtré et disponible pour le personnage
+const stallActionStock = actionsArrayIntantiator(actions);
+// Les  actions filtré et disponible pour le personnage
+const magasinActionItemsForCharacter = []
 
 
-// Instancier les actions via une boucle et la class Action
+
+/***********************************************************
+ *                    ALGO CREATION ECHOPPE                *
+ ***********************************************************/
+
+/* sortActionForCharacter()
+*  Instancier les actions via une boucle et la class Action
+*  @param {array} actions
+*/
+function actionsArrayIntantiator(actions) {
+    actions.forEach(el => {
+        
+    });
+}
+
+
+// 
+
+/* checkCharacterSkill()
+* Traiter le tableau actions[] et récupérer les items en fonction du personnage. 
+* @var : character
+*/
+function checkCharacterSkill() {
+    charactersGeneralSkillsList.forEach(el => {
+        if (character.hasOwnProperty(el)) {
+            charactersSkillsList.push(el)
+        }
+    });
+}
+
+/* sortActionForCharacter()
+*/
+function sortActionForCharacter() {
+    charactersSkillsList.forEach(el => {
+        let sorted = actions.filter((types) => {return types.type === el})
+        sorted = actionsArrayIntantiator(sorted);
+        magasinActionItemsForCharacter.push(...sorted)
+    });
+}
+
+
+
+
 // const magasinActionItemsForCharacter = la boucle filtré sur actions[]
 
-wizzard.actions = actions.filter((types) => {return types.type === "mana"})
-archer.actions = actions.filter((types) => {return types.type === "dexterity"})
-warrior.actions = actions.filter((types) => {return types.type === "force"})
-console.log(wizzard)
-console.log(archer)
-console.log(warrior)
+console.log(magasinActionItemsForCharacter)
+
+
+
+
+
 
 
 
@@ -212,10 +257,12 @@ console.log(warrior)
 // Créer une chaine de caractère à envoyer dans le prompt basé sur : 
 // ${action.uniqId} : ${action.name}
 let sentence = ''
-archer.actions.forEach(el => {
+magasinActionItemsForCharacter.forEach(el => {
     sentence = `${sentence} \n ${el.uniqId} : ${el.name} Te coûtes ${el.coast} points et fait ${el.damage} de dégats`
 });
 console.log(sentence)
+
+
 
 
 /***********************************************************
@@ -230,11 +277,22 @@ function promptDisplay() {
 // Permet d'afficher un prompt et de vérifier les donnéee et d'ajouter l'actions au actions du personnage
 function actionSelector() {
     // AFICHAGE DU PROMPT
-    promptDisplay()
-    // VERIFICATION DES DONNES
+    //promptDisplay()
+    // VERIFICATION DES DONNEES
 
     // Verifier que l'uniquId selectionné existe sinon on réafiche le prompt
+  
 
+        if(tableauActionWizzard.uniqId !== tableauActionWizzard.uniqId ){
+            promptDisplay()}
+    
+        else { for (let i = 0; i < howManyNewActions; i++) {
+            promptDisplay()
+            
+           }
+        }
+        return 
+                
     // ajout de l'actions au actions du personnage
 
 
