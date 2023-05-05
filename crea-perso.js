@@ -1,80 +1,315 @@
-// On déclare une variable qui stock les points que l'utilisateur
-// va répartir entre la vie et les points d'actions
-let limitePoint = 50;
+/***********************************************************
+ *                   FIXTURE DATA POUR TESTS               *
+ ***********************************************************/
 
-// On commence par créer la classe personnage parent qui servira de squelette
-// pour nos classes spécifiques de personnages
+
+/************** FIN DES FIXTURES   **************/ 
+
+
+
+/***********************************************************
+ *             CONFIGURATION DE L'AUBERGE                  *
+ ***********************************************************/
+
+
+// Permet le calcul final des points d'actions en fonction de la vie définie
+const limitePoint = 50; // @var {number} limitePoint
+
+// Combien de nouveau Personnages ?
+const howManyNewCharacters= 2; // @var {number} howManyNewCharacters
+
+// Nombre de Joueur
+const fighters = {};
+
+// Les Personnages disponible à l'auberge
+const characterModels = [
+    {
+        uid: 1,
+        name: 'Wizard',
+        type: 'wizard',
+        initClass: 'Wizard',
+        description: "The Wizard is bla bla bla"
+    },
+    {
+        uid: 2,
+        name: 'Warrior',
+        type: 'warior',
+        initClass: 'Warrior',
+        description: "The Warrior is bla bla bla"
+    },
+    {
+        uid: 3,
+        name: 'Archer',
+        type: 'archer',
+        initClass: 'Archer',
+        description: "The Archer is bla bla bla"
+    },
+]
+
+// Créer une chaine de caractère à envoyer dans le prompt pour le choix du nom du perso
+const nameChoiceSentence = ''
+// Créer une chaine de caractère à envoyer dans le prompt pour le choix de la vie du perso
+const lifeChoiceSentence = ''
+// Créer une chaine de caractère à envoyer dans le prompt pour le choix du type de perso
+let characterChoiceSentence = ''
+characterModels.forEach(el => {
+    characterChoiceSentence = `${characterChoiceSentence} \n ${el.uid} : ${el.name} => DESCRIPTION : ${el.description}`
+});
+
+/***********************************************************
+ *        CLASS Character => Instanciation des Character   *
+ * la classe personnage parent qui servira de squelette    *
+ * pour nos classes spécifiques de personnages             *
+ ***********************************************************/
 class Character {
+    // @var uid {string|number} unique
+    #uid;
+    // @var name {string}
     #name;
+    // @var life {number}
     #life;
+    // @var type {string}
     #type;
+    // @var actions {array}
     #actions = [];
-    constructor(name, type = null, life = 30) {
+
+    /* constructor(name, type, life)
+    *  @param {string} name
+    *  @param {number} life
+    */
+    constructor(name, life = 30) {
         this.#name = name;
-        this.#life = this.setLife(life);
-        this.#type = type;
+        this.#life = this.initLife(life);
+        this.#uid = `fighter_${Date.now()}`
     };
+
+    /* getUid()
+    *  @return {string} uid
+    */
+    getUid() {
+        return this.#uid;
+    };
+    /* getName()
+    *  @return {string} name
+    */
     getName() {
         return this.#name;
     };
-
-    // Avec le setName on permet à l'utilisateur de définir un nom
-    // à son personnage
+    /* setName(name)
+    *  @param {string} name
+    */
     setName(name) {
         this.#name = name;
         console.log(`My name is ${this.#name}`);
     };
+
+    /* getLife()
+    *  @return {number} life
+    */
     getLife() {
         return this.#life;
     };
-
-    // l'utilisateur défini la vie de son personnage avec une limite minimum 
-    // de 30 et maximum de 40
+    /* setLife(life)
+    *  @param {number} life
+    */
     setLife(life) {
+        this.#life = life;
+    };
+    /* initLife(life)
+    *  @param {number} life
+    *  Défini la vie de son personnage avec une limite minimum de 30 et maximum de 40
+    */
+    initLife(life) {
         if(life < 30 || life > 40) {
             console.log('Life cannot be less than 30 or more than 40');
-            // Rappel de la fonction setLife() si mauvaise valeur
-            // rentrée
         } else {
             this.#life = life;
-           return life;
+           return this.#life;
         };
     };
+
+    /* getType()
+    *  @return {string} type
+    */
     getType() {
         console.log(`My type is ${this.#type}`);
         return this.#type;
     };
+    /* setType(type)
+    *  @param {string} type
+    */
+    setType(type) {
+        this.#type = type;
+    };
+    /* getActions()
+    *  @return {array} actions
+    */
+
     getActions() {
         return this.#actions;
     };
+    /* setAction(action)
+    *  @param {object} action
+    */
     setAction(action) {
         this.#actions.push(action);
     };
 };
-/*const myCharacter = new Character();
-console.log(myCharacter);
-*/
 
-// On crée la première classe de personnage qui est
-// de type Wizard
+/***********************************************************
+ *        CLASS Wizard => Instanciation des Wizard         *
+ *       la classe fille Wizard hérite de Character        *
+ ***********************************************************/
 class Wizard extends Character {
+
+    // @var mana {number}
     #mana
-    constructor(name, type = 'Wizard', life, mana = null) {
-        super(name, type, life);
+    
+    /* constructor(name, type, life, mana)
+    *  @param {string} name
+    *  @param {number} life
+    */
+    constructor(name, life) {
+        super(name, life);
         this.#mana = limitePoint - this.getLife();
+        this.setType('Wizard');
     };
 
+    /* getMana()
+    *  @return {number} mana
+    */
     getMana() {
         return this.#mana;
     };
-
-    // le mana est définit grâce au nombre limite de points 
-    // auxquel on enlève les points de vie définit avant par
-    // l'utilisateur
-    howManyMana() {
-        console.log(`Mana is ${this.#mana}`);
+    /* setMana(mana)
+    *  @param {number} mana
+    */
+    setMana(mana) {
+        this.#mana = mana;
     };
 };
+
+/***********************************************************
+ *       CLASS Warrior => Instanciation des Warriors       *
+ *       la classe fille Warrior hérite de Character       *
+ ***********************************************************/
+class Warrior extends Character {
+
+    // @var strength {number}
+    #strength
+
+    /* constructor(name, type, life, strength)
+    *  @param {string} name
+    *  @param {number} life
+    */
+    constructor(name, life) {
+        super(name, life);
+        this.#strength = limitePoint - this.getLife();
+        this.setType('Warrior');
+    };
+
+    /* getStrength()
+    *  @return {number} strength
+    */
+    getStrength() {
+        return this.#strength;
+    };
+    /* setStrength(strength)
+    *  @param {number} strength
+    */
+    setStrength(strength) {
+        this.#strength = strength;
+    };
+};
+
+/***********************************************************
+ *        CLASS Archer => Instanciation des Archers        *
+ *       la classe fille Archer hérite de Character        *
+ ***********************************************************/
+class Archer extends Character {
+
+    // @var strength {dexterity}
+    #dexterity
+
+    /* constructor(name, type, life, strength)
+    *  @param {string} name
+    *  @param {number} life
+    */
+    constructor(name, life) {
+        super(name, life);
+        this.#dexterity = limitePoint - this.getLife();
+        this.setType('Archer');
+    };
+
+    /* getDexterity()
+    *  @return {number} dexterity
+    */
+    getDexterity() {
+        return this.#dexterity;
+    };
+
+    /* setDexterity(strength)
+    *  @param {number} strength
+    */
+    setDexterity(dexterity) {
+        this.#dexterity = dexterity;
+    };
+};
+
+const characterClasses = {
+    "wizard": Wizard,
+    "warrior": Warrior,
+    "archer": Archer,
+}
+
+
+
+/***********************************************************
+ *  ALGO init_character => Instanciation des Personnages   *
+ *                 l'ouverture de l'auberge                *
+ ***********************************************************/
+
+
+/* initCharacter()
+*  Permet la création de personnage
+*/
+function initCharacter() {
+    let characterName = prompt(nameChoiceSentence);
+    // vérifier que name != null
+    let typeChoice = prompt(characterChoiceSentence);
+    // vérifier que type != null
+    let characterLife = prompt(lifeChoiceSentence);
+    // vérifier que life != null
+    let newCharacter = "ppp"
+
+    // Filtrer le tableau et récupérer le type de perso en fonction de l'uid
+
+
+    // Créer dynamiquement le perso en appelant la bonne fonction
+    newCharacter = new characterClasses['archer'](characterName, )
+   
+    console.log(newCharacter);
+    return newCharacter;
+};
+
+/* startgame()
+*  Bah State le game
+*/
+function startGame() {
+    for (let i = 0; i < howManyNewCharacters; i++) {
+        fighters[`fighter${i + 1}`] = initCharacter()
+    }
+    console.log(fighters)
+}
+
+startGame()
+
+
+
+/***********************************************************
+ *                         TESSSSTTTEEEUH                  *
+ ***********************************************************/
+
 /* const myWizard = new Wizard('Sirius Black');
 console.log(myWizard);
 myWizard.getName();
@@ -86,51 +321,11 @@ myWizard.howManyMana();
 console.log(myWizard.getLife() - myWizard.getMana());
 */
 
-// Création de la classe personnage de type Warrior
-class Warrior extends Character {
-    #strength
-    constructor(name, type = 'Warrior', life, strength = null) {
-        super(name, type, life);
-        this.#strength = limitePoint - this.getLife();
-    };
-
-    getStrength() {
-        return this.#strength;
-    };
-
-    // la force est définit grâce au nombre limite de points 
-    // auxquel on enlève les points de vie définit avant par
-    // l'utilisateur
-    howManyStrength() {
-        console.log(`Strength is ${this.#strength}`);
-    };
-};
-
 /* const myWarrior = new Warrior('Kratos');
 console.log(myWarrior);
 myWarrior.setLife(40);
 myWarrior.howManyStrength();
 */
-
-// Création de la dernière classe de personnage qui est de type Archer
-class Archer extends Character {
-    #dexterity
-    constructor(name, type = 'Archer', life, dexterity = null) {
-        super(name, type, life);
-        this.#dexterity = limitePoint - this.getLife();
-    };
-
-    getDexterity() {
-        return this.#dexterity;
-    };
-
-    // la dextérité est définit grâce au nombre limite de points 
-    // auxquel on enlève les points de vie définit avant par
-    // l'utilisateur
-    howManyMana() {
-        console.log(`Dexterity is ${this.#dexterity}`);
-    };
-};
 
 /*const myArcher = new Archer('Legolas');
 console.log(myArcher);
@@ -138,18 +333,18 @@ myArcher.setLife(38);
 myArcher.howManyMana();
 */
 
-function choiceCharacter() {
-    let characterName = prompt('Veuillez choisir un nom');
-    let typeChoice = prompt('Veuillez choisir un type de personnage');
-    let characterLife = prompt('Veuillez choisir un niveau de vie');
-    switch(typeChoice) {
-        case 'Wizard': myCharacter = new Wizard(characterName, typeChoice, characterLife);
+/*
+ switch(typeChoice) {
+        case 'Wizard': 
+            newCharacter = new Wizard(characterName, typeChoice, characterLife);
         break;
-        case 'Warrior': myCharacter = new Warrior(characterName, typeChoice, characterLife);
+        case 'Warrior': 
+            newCharacter = new Warrior(characterName, typeChoice, characterLife);
         break;
-        case 'Archer': myCharacter = new Archer(characterName, typeChoice, characterLife);
+        case 'Archer': 
+            newCharacter = new Archer(characterName, typeChoice, characterLife);
+        break;
+        default:
+
     };
-    console.log(myCharacter);
-};
-choiceCharacter();
-choiceCharacter();
+*/
