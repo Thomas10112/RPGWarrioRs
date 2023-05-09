@@ -273,14 +273,16 @@ const characterClasses = {
  ***********************************************************/
 function initCharacterName() {
     currentCharacterName = prompt(nameChoiceSentence);
-    if(currentCharacterName == "") {
-        console.log("Name can't be empty!")
+    if(currentCharacterName !== "" && isNaN(currentCharacterName)) {
+        return currentCharacterName;
+    } else {
+        console.log("Enter a valid character name");
         initCharacterName();
     }
-}
+} 
 function initCharacterType() {
     currentCharacterTypeChoice = prompt(characterChoiceSentence);
-    if(currentCharacterTypeChoice == "" /* && typeof currentCharacterTypeChoice == "number" */ || currentCharacterTypeChoice <= 0 || currentCharacterTypeChoice > characterModels.length) {
+    if(currentCharacterTypeChoice == ""  || isNaN(currentCharacterTypeChoice) || currentCharacterTypeChoice <= 0 || currentCharacterTypeChoice > characterModels.length) {
         console.log('Select a valid choice Stupid !')
         initCharacterType();
     } 
@@ -288,7 +290,7 @@ function initCharacterType() {
 }
 function initCharacterLife() {
     currentCharacterLife = prompt(lifeChoiceSentence);
-    if(currentCharacterLife == "" /* && typeof currentCharacterLife == "number" */  || currentCharacterLife < lifeInitMinPoint || currentCharacterLife > lifeInitMaxPoint) {
+    if(currentCharacterLife == "" || isNaN(currentCharacterLife) || currentCharacterLife < lifeInitMinPoint || currentCharacterLife > lifeInitMaxPoint) {
         console.log(`Select a valid choice for life ! Between ${lifeInitMinPoint} and ${lifeInitMaxPoint}` )
         initCharacterLife();
     }
