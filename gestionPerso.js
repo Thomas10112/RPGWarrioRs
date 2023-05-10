@@ -178,6 +178,8 @@ class Action {
     }
 }
 
+let fsdf = new Action
+fsdf.getUniqId()
 /***********************************************************
  *               CONFIGURATION ECHOPPE                *
  ***********************************************************/
@@ -193,7 +195,7 @@ const charactersSkillsList = []
 const newActions = [];
 // Les nouvelles actions selectionnés
 const howManyNewActions = 2;
-// Les  actions filtré et disponible pour le personnage
+// Toute les actions en stock
 const stallActionStock = actionsArrayIntantiator(actions);
 // Les  actions filtré et disponible pour le personnage
 const magasinActionItemsForCharacter = []
@@ -209,9 +211,11 @@ const magasinActionItemsForCharacter = []
 *  @param {array} actions
 */
 function actionsArrayIntantiator(actions) {
-    actions.forEach(el => {
-        
+    let tableauFinal = [];
+    actions.forEach(action => {
+       tableauFinal.push( new Action(action.uniqId, action.name))
     });
+    return tableauFinal;
 }
 
 
@@ -276,12 +280,16 @@ function promptDisplay() {
 }
 // Permet d'afficher un prompt et de vérifier les donnéee et d'ajouter l'actions au actions du personnage
 function actionSelector() {
-    // AFICHAGE DU PROMPT
-    //promptDisplay()
+    // AFICHAGE DU PROMPT et récu^ération de l'id
+    let idSelected = promptDisplay()
     // VERIFICATION DES DONNEES
 
     // Verifier que l'uniquId selectionné existe sinon on réafiche le prompt
-  
+
+    // Boucle sur les actions disponibles au personnage
+        // Vérifie si l'id de l'action correspond à l'id saisie
+            // Si oui, on l'ajoute aux actions du personnage
+    // Si à la fin de la boucle on a rien, on affiche la prompt
 
         if(tableauActionWizzard.uniqId !== tableauActionWizzard.uniqId ){
             promptDisplay()}
@@ -294,7 +302,7 @@ function actionSelector() {
         return 
                 
     // ajout de l'actions au actions du personnage
-
+        character.setAction()
 
     // ajout de l'actions à newActions[]
 }
