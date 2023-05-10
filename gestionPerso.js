@@ -124,7 +124,7 @@ const actions = [
         damage: 15
     }
 ]
-let character = wizzard;
+let character = warrior;
 /************** FIN DES FIXTURES   **************/ 
 
 /***********************************************************
@@ -213,7 +213,7 @@ const magasinActionItemsForCharacter = []
 function actionsArrayIntantiator(actions) {
     let tableauFinal = [];
     actions.forEach(action => {
-       tableauFinal.push( new Action(action.uniqId, action.name))
+       tableauFinal.push( new Action(action.uniqId, action.name, action.type, action.coast, action.damage))
     });
     return tableauFinal;
 }
@@ -230,14 +230,16 @@ function checkCharacterSkill() {
         if (character.hasOwnProperty(el)) {
             charactersSkillsList.push(el)
         }
-    });
+    })
 }
 
 /* sortActionForCharacter()
 */
 function sortActionForCharacter() {
     charactersSkillsList.forEach(el => {
+        // On trie en fonction du type les actions
         let sorted = actions.filter((types) => {return types.type === el})
+        // On transforme les actions triées en class Action
         sorted = actionsArrayIntantiator(sorted);
         magasinActionItemsForCharacter.push(...sorted)
     });
@@ -247,7 +249,8 @@ function sortActionForCharacter() {
 
 
 // const magasinActionItemsForCharacter = la boucle filtré sur actions[]
-
+checkCharacterSkill()
+sortActionForCharacter()
 console.log(magasinActionItemsForCharacter)
 
 
@@ -262,7 +265,7 @@ console.log(magasinActionItemsForCharacter)
 // ${action.uniqId} : ${action.name}
 let sentence = ''
 magasinActionItemsForCharacter.forEach(el => {
-    sentence = `${sentence} \n ${el.uniqId} : ${el.name} Te coûtes ${el.coast} points et fait ${el.damage} de dégats`
+    sentence = `${sentence} \n ${el.getUniqId()} : ${el.getName()} Te coûtes ${el.getCoast()} points et fait ${el.getDamage()} de dégats`
 });
 console.log(sentence)
 
@@ -280,7 +283,7 @@ function promptDisplay() {
 }
 // Permet d'afficher un prompt et de vérifier les donnéee et d'ajouter l'actions au actions du personnage
 function actionSelector() {
-    // AFICHAGE DU PROMPT et récu^ération de l'id
+    // AFICHAGE DU PROMPT et récupération de l'id
     let idSelected = promptDisplay()
     // VERIFICATION DES DONNEES
 
@@ -291,7 +294,7 @@ function actionSelector() {
             // Si oui, on l'ajoute aux actions du personnage
     // Si à la fin de la boucle on a rien, on affiche la prompt
 
-        if(tableauActionWizzard.uniqId !== tableauActionWizzard.uniqId ){
+        if(idActionMagasin === idSelected ){
             promptDisplay()}
     
         else { for (let i = 0; i < howManyNewActions; i++) {
