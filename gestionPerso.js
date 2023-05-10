@@ -308,15 +308,10 @@ function actionSelector() {
         console.error("Recommence");
         actionSelector()
     }
-    console.log("Action choisi", choice);
+   
     // TODO : remplacer le push par setActions quand on travaillera avec des class
     character.actions.push(choice) 
-    
-        
-                
-    
-        
-
+    console.log(`Action choisi, ${choice.getName()}`);
     // ajout de l'actions à newActions[]
 
 }
