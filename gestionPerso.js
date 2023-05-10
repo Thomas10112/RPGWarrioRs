@@ -275,10 +275,13 @@ console.log(sentence)
 /***********************************************************
  *           ALGO RECUPERATION CHOIX UTILISATEUR           *
  ***********************************************************/
+let idActionMagasin = new Action()
+
 
 // POMPT DISPLAYER
 function promptDisplay() {
     let userChoice = prompt(sentence);
+    console.log(userChoice);
     return userChoice;
 }
 // Permet d'afficher un prompt et de vérifier les donnéee et d'ajouter l'actions au actions du personnage
@@ -288,32 +291,39 @@ function actionSelector() {
     // VERIFICATION DES DONNEES
 
     // Verifier que l'uniquId selectionné existe sinon on réafiche le prompt
-
+    let choice = null
     // Boucle sur les actions disponibles au personnage
         // Vérifie si l'id de l'action correspond à l'id saisie
             // Si oui, on l'ajoute aux actions du personnage
     // Si à la fin de la boucle on a rien, on affiche la prompt
-
-        if(idActionMagasin === idSelected ){
-            promptDisplay()}
+    magasinActionItemsForCharacter.forEach(ActionMagasin => {
+        console.log(ActionMagasin.getUniqId());
+        if(ActionMagasin.getUniqId() == idSelected )
+        {
+            // ajout de l'actions au actions du personnage
+            choice = ActionMagasin
+        } 
+    })
+    if (choice === null) {
+        console.error("Recommence");
+        actionSelector()
+    }
+    console.log("Action choisi", choice);
+    // TODO : remplacer le push par setActions quand on travaillera avec des class
+    character.actions.push(choice) 
     
-        else { for (let i = 0; i < howManyNewActions; i++) {
-            promptDisplay()
-            
-           }
-        }
-        return 
+        
                 
-    // ajout de l'actions au actions du personnage
-        character.setAction()
+    
+        
 
     // ajout de l'actions à newActions[]
-}
 
+}
 for (let i = 0; i < howManyNewActions; i++) {
     actionSelector()
 }
-
+console.log(character)
 // Afficher nouvelles actions de l'utilisateur via : 
 // exemple => newActions[0].name (une boucle par exemple)
 //console.log();
